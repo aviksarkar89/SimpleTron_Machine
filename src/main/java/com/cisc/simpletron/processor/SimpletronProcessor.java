@@ -1,3 +1,9 @@
+/**
+ * The core class for the Simpletron machine to load instructions and execute operations
+ * @author Avik Sarkar
+ * @version 3.0
+ */
+
 package com.cisc.simpletron.processor;
 
 import com.cisc.simpletron.memory.SimpletronMemory;
@@ -7,12 +13,7 @@ import com.cisc.simpletron.scanner.ScannerHelper;
 import java.io.File;
 import java.util.Scanner;
 
-/**
- * The core class for the Simpletron machine to load instructions and execute operations
- *
- * @author Feifna Wu
- * @version 3.0
- */
+
 public class SimpletronProcessor {
     private final SimpletronMemory memory;
     private int instructionCounter;
