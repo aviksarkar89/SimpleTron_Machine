@@ -1,14 +1,11 @@
-package com.cisc.simpletron.operation;
-
 /**
- * The enum class contains all operations supported by the Simpletron program,
- * assigned with associated value of operation code
- * <p>
- * Provides a method to get operation by given operation code
- *
- * @author Feifan Wu
+ * Defines a method to get operation by given operation code
+ * @author Avik Sarkar
  * @version 3.0
  */
+
+package com.cisc.simpletron.operation;
+
 public enum Operations {
     READ(10), WRITE(11),
     LOAD(20), STORE(21),
