@@ -6,13 +6,11 @@
 
 package com.cisc.simpletron.processor;
 
+import java.io.File;
+import java.util.Scanner;
 import com.cisc.simpletron.memory.SimpletronMemory;
 import com.cisc.simpletron.operation.Operations;
 import com.cisc.simpletron.scanner.ScannerHelper;
-
-import java.io.File;
-import java.util.Scanner;
-
 
 public class SimpletronProcessor {
     private final SimpletronMemory memory;
@@ -34,8 +32,8 @@ public class SimpletronProcessor {
     }
 
     /**
-     * Main process method to call execution steps in order
-     * based on selected mode - user input or file input
+     * This is the Main process method to call execution steps based on the 
+     * user selection
      */
     public int process() {
         MachineMode mode = selectLoadingSource();
@@ -48,7 +46,7 @@ public class SimpletronProcessor {
                 break;
         }
         int res = executeOperations();
-        System.out.println("Final Result: " + res);
+        System.out.println("Final: " + res);
         dumpSummary();
         scanner.closeScanner();
         return res;
@@ -58,7 +56,7 @@ public class SimpletronProcessor {
      * Loading instructions to memory by user input
      */
     private void loadMemoryFromUserInput() {
-        System.out.println("Simpletron program will load from user input. Please follow the prompts.");
+        System.out.println("The simpletron machine will load from user input");
         System.out.println();
         int addr = 0;
         int instruction = 0;
@@ -77,8 +75,7 @@ public class SimpletronProcessor {
             addr = loadInstruction(addr, instruction);
         }
         System.out.println("""
-                *** Program loading completed ***
-                *** Program execution begins ***
+                           Program loaded and execution complete
                 """);
     }
 
@@ -121,12 +118,12 @@ public class SimpletronProcessor {
             var currVal = memory.getVal(operand);
             switch (Operations.getOperation(operationCode)) {
                 case READ:
-                    System.out.print("Enter an integer: ");
+                    System.out.print("Enter an integer number: ");
                     int val = scanner.inputInt();
                     // ask user reenter number if input is invalid
                     while (val < -9999 || val > 9999) {
-                        System.out.println("Input must be in range [-9999, 9999]");
-                        System.out.print("Enter an integer: ");
+                        System.out.println("Input must be in range from -9999 to 9999");
+                        System.out.print("Enter an integer number: ");
                         val = scanner.inputInt();
                     }
                     memory.saveVal(operand, val);
@@ -149,8 +146,7 @@ public class SimpletronProcessor {
                 case DIVIDE:
                     if (currVal == 0) {
                         System.out.println("""
-                                *** Attempt to divide by zero ***
-                                *** Simpletron execution terminated abnormally ***
+                                ### Div by 0 Exception case
                                 """);
                         System.exit(1);
                     } else {
@@ -176,13 +172,12 @@ public class SimpletronProcessor {
                     }
                     break;
                 case HALT:
-                    System.out.println("*** Simpletron execution terminated normally ***");
+                    System.out.println("Simpletron terminated normally");
                     return res;
                 case REMAINDER:
                     if (currVal == 0) {
                         System.out.println("""
-                                *** Attempt to divide by zero ***
-                                *** Simpletron execution terminated abnormally ***
+                               Terminated due to divide by 0 attempt
                                 """);
                         System.exit(1);
                     }
@@ -197,8 +192,7 @@ public class SimpletronProcessor {
                 case null:
                 default:
                     System.out.println("""
-                            *** Invalid operation code ***
-                            *** Simpletron execution terminated abnormally ***
+                           Invalid op code, Simpletron terminated
                             """);
                     return res;
             }
@@ -217,13 +211,13 @@ public class SimpletronProcessor {
         try {
             instruction = scanner.inputInt();
             while (instruction != -99999 && (instruction < -9999 || instruction > 9999)) {
-                System.out.println("Please input instruction in range [-9999, 9999] or -99999");
+                System.out.println("Please input instruction in range from -9999 to 9999, or -99999");
                 System.out.print(prompt);
                 instruction = scanner.inputInt();
             }
         } catch (Exception e) {
-            System.out.println("*** Exception while loading instruction to memory: " + e.getMessage() + " ***");
-            System.out.println("*** Simpletron execution terminated abnormally ***");
+            System.out.println("Exception while loading instruction to memory: " + e.getMessage());
+            System.out.println("Simpletron execution terminated abnormally ");
             System.exit(1);
         }
         return instruction;
@@ -244,11 +238,11 @@ public class SimpletronProcessor {
     }
 
     /**
-     * Method to print memory dump at the end of program execution
+     * Print memory dump post program execution
      */
     private void dumpSummary() {
         System.out.println();
-        System.out.println("REGISTERS:");
+        System.out.println("Reg:");
         System.out.printf("%-30s%5s\n", "accumulator", formatInteger(accumulator, 4, true));
         System.out.printf("%-30s%5s\n", "instructionCounter", formatInteger(instructionCounter, 2, false));
         System.out.printf("%-30s%5s\n", "instructionRegister", formatInteger(instructionRegister, 4, true));
