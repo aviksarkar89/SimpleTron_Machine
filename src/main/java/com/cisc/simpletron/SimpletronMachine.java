@@ -1,14 +1,14 @@
+/**
+ * The main class there Simpletron Machine runs
+ * @author Avik Sarkar
+ * @version 3.0
+ */
+
 package com.cisc.simpletron;
 
 import com.cisc.simpletron.processor.SimpletronProcessor;
 import com.cisc.simpletron.scanner.ScannerHelper;
 
-/**
- * The main class there Simpletron Machine runs
- *
- * @author Feifan Wu
- * @version 3.0
- */
 public class SimpletronMachine {
 
     private static final SimpletronProcessor processor = new SimpletronProcessor(100, new ScannerHelper());
