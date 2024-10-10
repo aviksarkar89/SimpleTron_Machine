@@ -1,13 +1,13 @@
+/**
+ * A helper class for using Scanner class methods
+ * @author Avik Sarkar
+ * @version 3.0
+ */
+
 package com.cisc.simpletron.scanner;
 
 import java.util.Scanner;
 
-/**
- * A helper class for using Scanner class methods
- *
- * @author Feifan Wu
- * @version 3.0
- */
 public class ScannerHelper {
 
     private final Scanner scanner = new Scanner(System.in);
